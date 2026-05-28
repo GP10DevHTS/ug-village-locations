@@ -14,6 +14,7 @@ class PassportUgProvider implements LocationProviderInterface
         // This is a bit tricky because the districts are often hardcoded or in the initial page.
         // Based on the example seeder, we have a list.
         $districtsHtml = [
+            '<option value="56">MBARARA</option>',
             '<option value="98">ABIM</option>', '<option value="68">ADJUMANI</option>', '<option value="23">AGAGO</option>',
             '<option value="116">ALEBTONG</option>', '<option value="85">AMOLATAR</option>', '<option value="109">AMUDAT</option>',
             '<option value="86">AMURIA</option>', '<option value="99">AMURU</option>', '<option value="1">APAC</option>',
@@ -44,7 +45,7 @@ class PassportUgProvider implements LocationProviderInterface
             '<option value="122">LUUKA</option>', '<option value="52">LUWEERO</option>', '<option value="16">LWENGO</option>',
             '<option value="108">LYANTONDE</option>', '<option value="134">MADI-OKOLLO</option>', '<option value="95">MANAFWA</option>',
             '<option value="105">MARACHA</option>', '<option value="53">MASAKA</option>', '<option value="54">MASINDI</option>',
-            '<option value="77">MAYUGE</option>', '<option value="55">MBALE</option>', '<option value="56">MBARARA</option>',
+            '<option value="77">MAYUGE</option>', '<option value="55">MBALE</option>',
             '<option value="17">MITOOMA</option>', '<option value="96">MITYANA</option>', '<option value="57">MOROTO</option>',
             '<option value="135">MOYO</option>', '<option value="58">MPIGI</option>', '<option value="59">MUBENDE</option>',
             '<option value="60">MUKONO</option>', '<option value="41">NABILATUK</option>', '<option value="84">NAKAPIRIPIRIT</option>',
