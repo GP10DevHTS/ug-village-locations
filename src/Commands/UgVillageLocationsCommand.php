@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Gp10devhts\UgVillageLocations\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class UgVillageLocationsCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'ug-village-locations';
 
     public $description = 'My command';
 

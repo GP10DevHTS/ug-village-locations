@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "gp10devhts/ug-village-locations",
+    "description": "village locations package for uganda",
     "keywords": [
-        ":vendor_name",
+        "gp10devhts",
         "laravel",
-        ":package_slug"
+        "ug-village-locations"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/gp10devhts/ug-village-locations",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Ahairwe Jordan",
+            "email": "jordankatetegirwe@gmail.com",
             "role": "Developer"
         }
     ],
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Gp10devhts\\UgVillageLocations\\": "src/",
+            "Gp10devhts\\UgVillageLocations\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "Gp10devhts\\UgVillageLocations\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -63,10 +63,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Gp10devhts\\UgVillageLocations\\UgVillageLocationsServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "UgVillageLocations": "Gp10devhts\\UgVillageLocations\\Facades\\UgVillageLocations"
             }
         }
     },
