@@ -40,6 +40,7 @@ class UgLocations
         if ($districtId) {
             $query->where('district_id', $districtId);
         }
+
         return $query->get();
     }
 
@@ -49,6 +50,7 @@ class UgLocations
         if ($countyId) {
             $query->where('county_id', $countyId);
         }
+
         return $query->get();
     }
 
@@ -58,6 +60,7 @@ class UgLocations
         if ($subCountyId) {
             $query->where('sub_county_id', $subCountyId);
         }
+
         return $query->get();
     }
 
@@ -67,6 +70,7 @@ class UgLocations
         if ($parishId) {
             $query->where('parish_id', $parishId);
         }
+
         return $query->get();
     }
 }

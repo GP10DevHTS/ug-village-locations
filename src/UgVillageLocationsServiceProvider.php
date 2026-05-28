@@ -14,7 +14,7 @@ class UgVillageLocationsServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         $this->app->singleton('ug-locations', function () {
-            return new UgLocations();
+            return new UgLocations;
         });
     }
 
