@@ -8,9 +8,7 @@ use Illuminate\Support\Str;
 class SubCounty extends Model
 {
     protected $table = 'ug_sub_counties';
-
     protected $guarded = [];
-
     public $incrementing = false;
 
     protected static function booted()
@@ -24,12 +22,12 @@ class SubCounty extends Model
 
     public function county()
     {
-        return $this->belongsTo(County::class);
+        return $this->belongsTo(config('ug-village-locations.models.county'));
     }
 
     public function parishes()
     {
-        return $this->hasMany(Parish::class);
+        return $this->hasMany(config('ug-village-locations.models.parish'));
     }
 
     public function scopeSearch($query, $term)

@@ -3,15 +3,14 @@
 namespace Gp10devhts\UgVillageLocations\Services;
 
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class BuildDumpService
 {
     public function build(?callable $onProgress = null): void
     {
-        $jsonPath = __DIR__.'/../../resources/data/uganda_locations.json';
-        if (! File::exists($jsonPath)) {
-            throw new \Exception('Raw data file not found. Run fetch command first.');
+        $jsonPath = __DIR__ . '/../../resources/data/uganda_locations.json';
+        if (!File::exists($jsonPath)) {
+            throw new \Exception("Raw data file not found. Run fetch command first.");
         }
 
         $data = json_decode(File::get($jsonPath), true);
@@ -44,33 +43,31 @@ class BuildDumpService
             }
         }
 
-        $dumpDir = __DIR__.'/../../database/dumps';
+        $dumpDir = __DIR__ . '/../../database/dumps';
         File::ensureDirectoryExists($dumpDir);
 
         foreach ($dumps as $table => $rows) {
             if ($onProgress) {
                 $onProgress("Building dump for table: ug_{$table}");
             }
-            $this->writeDumpFile($dumpDir."/{$table}.sql", "ug_{$table}", $rows);
+            $this->writeDumpFile($dumpDir . "/{$table}.sql", "ug_{$table}", $rows);
         }
     }
 
     protected function formatRow(array $data): array
     {
         if (config('ug-village-locations.use_uuids', false)) {
-            $data['uuid'] = (string) Str::uuid();
+            $data['uuid'] = (string) \Illuminate\Support\Str::uuid();
         }
         $data['created_at'] = date('Y-m-d H:i:s');
         $data['updated_at'] = date('Y-m-d H:i:s');
-
         return $data;
     }
 
     protected function writeDumpFile(string $path, string $table, array $rows): void
     {
         if (empty($rows)) {
-            File::put($path, '');
-
+            File::put($path, "");
             return;
         }
 
@@ -79,23 +76,18 @@ class BuildDumpService
 
         $chunks = array_chunk($rows, 100);
 
-        $fullSql = '';
+        $fullSql = "";
         foreach ($chunks as $chunk) {
             $values = [];
             foreach ($chunk as $row) {
-                $escapedValues = array_map(function ($v) {
-                    if (is_null($v)) {
-                        return 'NULL';
-                    }
-                    if (is_numeric($v)) {
-                        return $v;
-                    }
-
-                    return "'".str_replace("'", "''", $v)."'";
+                $escapedValues = array_map(function($v) {
+                    if (is_null($v)) return 'NULL';
+                    if (is_numeric($v)) return $v;
+                    return "'" . str_replace("'", "''", $v) . "'";
                 }, array_values($row));
-                $values[] = '('.implode(', ', $escapedValues).')';
+                $values[] = "(" . implode(', ', $escapedValues) . ")";
             }
-            $fullSql .= "INSERT INTO `{$table}` (`{$columnsSql}`) VALUES ".implode(",\n", $values).";\n";
+            $fullSql .= "INSERT INTO `{$table}` (`{$columnsSql}`) VALUES " . implode(",\n", $values) . ";\n";
         }
 
         File::put($path, $fullSql);

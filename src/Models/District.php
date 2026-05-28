@@ -8,9 +8,7 @@ use Illuminate\Support\Str;
 class District extends Model
 {
     protected $table = 'ug_districts';
-
     protected $guarded = [];
-
     public $incrementing = false;
 
     protected static function booted()
@@ -24,7 +22,7 @@ class District extends Model
 
     public function counties()
     {
-        return $this->hasMany(County::class);
+        return $this->hasMany(config('ug-village-locations.models.county'));
     }
 
     public function scopeSearch($query, $term)

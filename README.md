@@ -57,6 +57,14 @@ return [
         'villages',
     ],
     'use_uuids' => false,
+
+    'models' => [
+        'district' => \Gp10devhts\UgVillageLocations\Models\District::class,
+        'county' => \Gp10devhts\UgVillageLocations\Models\County::class,
+        'sub_county' => \Gp10devhts\UgVillageLocations\Models\SubCounty::class,
+        'parish' => \Gp10devhts\UgVillageLocations\Models\Parish::class,
+        'village' => \Gp10devhts\UgVillageLocations\Models\Village::class,
+    ],
 ];
 ```
 
@@ -77,6 +85,37 @@ $kampala = District::search('Kampala')->first();
 // Relationships
 $counties = $kampala->counties;
 $villages = Village::where('name', 'like', '%Kibuli%')->with('parish.subCounty.county.district')->get();
+
+// Using the Facade for model resolution and helper methods
+use Gp10devhts\UgVillageLocations\Facades\UgVillageLocations;
+
+$districtModel = UgVillageLocations::districtModel();
+$districts = UgVillageLocations::districts();
+$counties = UgVillageLocations::counties($districtId);
+```
+
+### Model Extensibility
+
+You can override the default models by updating the `models` array in the config file. This allows you to add custom relationships, scopes, or traits.
+
+```php
+// config/ug-village-locations.php
+'models' => [
+    'village' => App\Models\Village::class,
+],
+```
+
+Your custom model should extend the package's base model:
+
+```php
+namespace App\Models;
+
+use Gp10devhts\UgVillageLocations\Models\Village as BaseVillage;
+
+class Village extends BaseVillage
+{
+    // Custom logic
+}
 ```
 
 ## Artisan Commands
