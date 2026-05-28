@@ -2,8 +2,8 @@
 
 namespace Gp10devhts\UgVillageLocations\Providers;
 
-use Illuminate\Support\Facades\Http;
 use DOMDocument;
+use Illuminate\Support\Facades\Http;
 
 class PassportUgProvider implements LocationProviderInterface
 {
@@ -66,42 +66,43 @@ class PassportUgProvider implements LocationProviderInterface
             if (preg_match('/value="(\d+)">([^<]+)<\/option>/', $html, $matches)) {
                 $results[] = [
                     'id' => (int) $matches[1],
-                    'name' => $matches[2]
+                    'name' => $matches[2],
                 ];
             }
         }
+
         return $results;
     }
 
     public function getCounties(int $districtId): array
     {
-        return $this->fetchFromUrl($this->baseUrl . '/load-counties/?district=' . $districtId);
+        return $this->fetchFromUrl($this->baseUrl.'/load-counties/?district='.$districtId);
     }
 
     public function getSubCounties(int $countyId): array
     {
-        return $this->fetchFromUrl($this->baseUrl . '/load-subcounties/?county=' . $countyId);
+        return $this->fetchFromUrl($this->baseUrl.'/load-subcounties/?county='.$countyId);
     }
 
     public function getParishes(int $subCountyId): array
     {
-        return $this->fetchFromUrl($this->baseUrl . '/load-parishes/?subcounty=' . $subCountyId);
+        return $this->fetchFromUrl($this->baseUrl.'/load-parishes/?subcounty='.$subCountyId);
     }
 
     public function getVillages(int $parishId): array
     {
-        return $this->fetchFromUrl($this->baseUrl . '/load-villages/?parish=' . $parishId);
+        return $this->fetchFromUrl($this->baseUrl.'/load-villages/?parish='.$parishId);
     }
 
     protected function fetchFromUrl(string $url): array
     {
         $response = Http::get($url);
-        if (!$response->successful()) {
+        if (! $response->successful()) {
             return [];
         }
 
         $html = $response->body();
-        $dom = new DOMDocument();
+        $dom = new DOMDocument;
         @$dom->loadHTML($html);
         $options = $dom->getElementsByTagName('option');
         $results = [];
@@ -116,7 +117,7 @@ class PassportUgProvider implements LocationProviderInterface
 
             $results[] = [
                 'id' => (int) $id,
-                'name' => trim($name)
+                'name' => trim($name),
             ];
         }
 

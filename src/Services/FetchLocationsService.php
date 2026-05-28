@@ -17,7 +17,7 @@ class FetchLocationsService
 
         foreach ($districts as $index => $district) {
             if ($onProgress) {
-                $onProgress("Fetching district: {$district['name']} (" . ($index + 1) . "/{$totalDistricts})");
+                $onProgress("Fetching district: {$district['name']} (".($index + 1)."/{$totalDistricts})");
             }
 
             $districtData = $district;
@@ -46,7 +46,7 @@ class FetchLocationsService
             $data[] = $districtData;
         }
 
-        $path = __DIR__ . '/../../resources/data/uganda_locations.json';
+        $path = __DIR__.'/../../resources/data/uganda_locations.json';
         File::ensureDirectoryExists(dirname($path));
         File::put($path, json_encode($data, JSON_PRETTY_PRINT));
 

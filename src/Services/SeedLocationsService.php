@@ -30,12 +30,12 @@ class SeedLocationsService
         $allLevels = ['districts', 'counties', 'sub_counties', 'parishes', 'villages'];
         $levels = array_intersect($allLevels, array_unique($levelsToSeed));
 
-        $dumpDir = __DIR__ . '/../../database/dumps';
+        $dumpDir = __DIR__.'/../../database/dumps';
 
         DB::transaction(function () use ($levels, $dumpDir, $onProgress) {
             foreach ($levels as $level) {
                 $path = "{$dumpDir}/{$level}.sql";
-                if (!File::exists($path)) {
+                if (! File::exists($path)) {
                     continue;
                 }
 
@@ -44,7 +44,7 @@ class SeedLocationsService
                 }
 
                 $sql = File::get($path);
-                if (!empty(trim($sql))) {
+                if (! empty(trim($sql))) {
                     DB::unprepared($sql);
                 }
             }
