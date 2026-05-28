@@ -1,11 +1,5 @@
 <?php
 
-use Gp10devhts\UgVillageLocations\Models\County;
-use Gp10devhts\UgVillageLocations\Models\District;
-use Gp10devhts\UgVillageLocations\Models\Parish;
-use Gp10devhts\UgVillageLocations\Models\SubCounty;
-use Gp10devhts\UgVillageLocations\Models\Village;
-
 return [
     /*
     |--------------------------------------------------------------------------
@@ -45,10 +39,10 @@ return [
     |
     */
     'models' => [
-        'district' => District::class,
-        'county' => County::class,
-        'sub_county' => SubCounty::class,
-        'parish' => Parish::class,
-        'village' => Village::class,
+        'district' => \Gp10devhts\UgVillageLocations\Models\District::class,
+        'county' => \Gp10devhts\UgVillageLocations\Models\County::class,
+        'sub_county' => \Gp10devhts\UgVillageLocations\Models\SubCounty::class,
+        'parish' => \Gp10devhts\UgVillageLocations\Models\Parish::class,
+        'village' => \Gp10devhts\UgVillageLocations\Models\Village::class,
     ],
 ];
