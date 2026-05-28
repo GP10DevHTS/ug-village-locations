@@ -14,7 +14,8 @@ class BuildDumpService
             throw new \Exception('Raw data file not found. Run fetch command first.');
         }
 
-        $data = json_decode(File::get($jsonPath), true);
+        $json = json_decode(File::get($jsonPath), true);
+        $data = $json['data'] ?? $json;
 
         $dumps = [
             'districts' => [],
