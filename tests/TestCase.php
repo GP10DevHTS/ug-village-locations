@@ -2,9 +2,9 @@
 
 namespace Gp10devhts\UgVillageLocations\Tests;
 
+use Gp10devhts\UgVillageLocations\UgVillageLocationsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Gp10devhts\UgVillageLocations\UgVillageLocationsServiceProvider;
 
 class TestCase extends Orchestra
 {

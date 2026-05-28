@@ -2,9 +2,9 @@
 
 namespace Gp10devhts\UgVillageLocations;
 
+use Gp10devhts\UgVillageLocations\Commands\UgVillageLocationsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Gp10devhts\UgVillageLocations\Commands\UgVillageLocationsCommand;
 
 class UgVillageLocationsServiceProvider extends PackageServiceProvider
 {
