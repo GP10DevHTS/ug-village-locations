@@ -1,5 +1,6 @@
 <?php
 
+use Gp10devhts\UgVillageLocations\Facades\UgVillageLocations;
 use Gp10devhts\UgVillageLocations\Models\County;
 use Gp10devhts\UgVillageLocations\Models\District;
 use Gp10devhts\UgVillageLocations\Services\SeedLocationsService;
@@ -66,4 +67,17 @@ it('respects seed_levels config', function () {
 
     expect(District::count())->toBe(1);
     expect(County::count())->toBe(0);
+});
+
+it('can use custom models', function () {
+    class CustomDistrict extends District {}
+
+    config(['ug-village-locations.models.district' => CustomDistrict::class]);
+
+    expect(UgVillageLocations::districtModel())->toBe(CustomDistrict::class);
+
+    District::create(['id' => 1, 'name' => 'D1']);
+
+    $district = UgVillageLocations::districts()->first();
+    expect($district)->toBeInstanceOf(CustomDistrict::class);
 });

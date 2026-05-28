@@ -24,7 +24,7 @@ class Village extends Model
 
     public function parish()
     {
-        return $this->belongsTo(Parish::class);
+        return $this->belongsTo(config('ug-village-locations.models.parish'));
     }
 
     public function scopeSearch($query, $term)

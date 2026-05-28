@@ -24,7 +24,7 @@ class District extends Model
 
     public function counties()
     {
-        return $this->hasMany(County::class);
+        return $this->hasMany(config('ug-village-locations.models.county'));
     }
 
     public function scopeSearch($query, $term)

@@ -24,12 +24,12 @@ class County extends Model
 
     public function district()
     {
-        return $this->belongsTo(District::class);
+        return $this->belongsTo(config('ug-village-locations.models.district'));
     }
 
     public function subCounties()
     {
-        return $this->hasMany(SubCounty::class);
+        return $this->hasMany(config('ug-village-locations.models.sub_county'));
     }
 
     public function scopeSearch($query, $term)

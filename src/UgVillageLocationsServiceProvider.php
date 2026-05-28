@@ -11,6 +11,13 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class UgVillageLocationsServiceProvider extends PackageServiceProvider
 {
+    public function packageRegistered(): void
+    {
+        $this->app->singleton('ug-locations', function () {
+            return new UgLocations;
+        });
+    }
+
     public function configurePackage(Package $package): void
     {
         /*
