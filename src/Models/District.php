@@ -8,9 +8,7 @@ use Illuminate\Support\Str;
 class District extends Model
 {
     protected $table = 'ug_districts';
-
     protected $guarded = [];
-
     public $incrementing = false;
 
     protected static function booted()
