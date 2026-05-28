@@ -8,12 +8,13 @@ use Illuminate\Support\Facades\File;
 class FetchLocationsService
 {
     protected string $rawPath;
+
     protected string $finalPath;
 
     public function __construct(protected LocationProviderInterface $provider)
     {
-        $this->rawPath = __DIR__ . '/../../resources/data/raw';
-        $this->finalPath = __DIR__ . '/../../resources/data/uganda_locations.json';
+        $this->rawPath = __DIR__.'/../../resources/data/raw';
+        $this->finalPath = __DIR__.'/../../resources/data/uganda_locations.json';
     }
 
     public function fetchAll(bool $fresh = false, ?callable $onProgress = null): void
@@ -31,16 +32,17 @@ class FetchLocationsService
         foreach ($districts as $index => $district) {
             $safeName = strtolower(preg_replace('/[^a-z0-9]/i', '-', $district['name']));
             $fileName = sprintf('%03d-%s.json', $district['id'], $safeName);
-            $filePath = $this->rawPath . '/' . $fileName;
+            $filePath = $this->rawPath.'/'.$fileName;
 
             if (File::exists($filePath)) {
                 if ($onProgress) {
                     $onProgress('district_skipped', [
                         'name' => $district['name'],
                         'current' => $index + 1,
-                        'total' => $totalDistricts
+                        'total' => $totalDistricts,
                     ]);
                 }
+
                 continue;
             }
 
@@ -48,7 +50,7 @@ class FetchLocationsService
                 $onProgress('district_start', [
                     'name' => $district['name'],
                     'current' => $index + 1,
-                    'total' => $totalDistricts
+                    'total' => $totalDistricts,
                 ]);
             }
 
@@ -95,7 +97,7 @@ class FetchLocationsService
             }
 
             // Atomic write for district file
-            $tmpPath = $filePath . '.tmp';
+            $tmpPath = $filePath.'.tmp';
             File::put($tmpPath, json_encode($districtData, JSON_PRETTY_PRINT));
             File::move($tmpPath, $filePath);
 
@@ -114,7 +116,7 @@ class FetchLocationsService
             $onProgress('merging_start', []);
         }
 
-        $files = File::glob($this->rawPath . '/*.json');
+        $files = File::glob($this->rawPath.'/*.json');
         sort($files);
 
         $data = [];
@@ -129,7 +131,7 @@ class FetchLocationsService
             'data' => $data,
         ];
 
-        $tmpPath = $this->finalPath . '.tmp';
+        $tmpPath = $this->finalPath.'.tmp';
         File::put($tmpPath, json_encode($metadata, JSON_PRETTY_PRINT));
         File::move($tmpPath, $this->finalPath);
 

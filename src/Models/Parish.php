@@ -8,7 +8,9 @@ use Illuminate\Support\Str;
 class Parish extends Model
 {
     protected $table = 'ug_parishes';
+
     protected $guarded = [];
+
     public $incrementing = false;
 
     protected static function booted()

@@ -2,10 +2,11 @@
 
 namespace Gp10devhts\UgVillageLocations\Facades;
 
+use Gp10devhts\UgVillageLocations\UgLocations;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Gp10devhts\UgVillageLocations\UgLocations
+ * @see UgLocations
  */
 class UgVillageLocations extends Facade
 {

@@ -9,16 +9,17 @@ use Illuminate\Console\Command;
 class FetchLocationsCommand extends Command
 {
     protected $signature = 'ug-locations:fetch {--fresh : Clear existing data and start over}';
+
     protected $description = 'Fetch all Uganda administrative data from remote source';
 
     public function handle(): int
     {
         $this->info('Starting data collection from remote source...');
 
-        $provider = new PassportUgProvider();
+        $provider = new PassportUgProvider;
         $service = new FetchLocationsService($provider);
 
-        $service->fetchAll($this->option('fresh'), function($event, $data) {
+        $service->fetchAll($this->option('fresh'), function ($event, $data) {
             switch ($event) {
                 case 'district_skipped':
                     $this->line("<info>Skipping district:</info> {$data['name']} ({$data['current']}/{$data['total']}) - already fetched.");
@@ -43,10 +44,10 @@ class FetchLocationsCommand extends Command
                     $this->info("Completed district: {$data['name']}");
                     break;
                 case 'checkpoint_saved':
-                    $this->comment("Saved checkpoint.");
+                    $this->comment('Saved checkpoint.');
                     break;
                 case 'merging_start':
-                    $this->info("Merging all district data into final dataset...");
+                    $this->info('Merging all district data into final dataset...');
                     break;
                 case 'merging_completed':
                     $this->info("Final dataset generated: {$data['path']}");
