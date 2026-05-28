@@ -8,7 +8,9 @@ use Illuminate\Support\Str;
 class SubCounty extends Model
 {
     protected $table = 'ug_sub_counties';
+
     protected $guarded = [];
+
     public $incrementing = false;
 
     protected static function booted()
