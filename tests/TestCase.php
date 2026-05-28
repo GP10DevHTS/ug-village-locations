@@ -28,10 +28,17 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        /*
-         foreach (\Illuminate\Support\Facades\File::allFiles(__DIR__ . '/../database/migrations') as $migration) {
-            (include $migration->getRealPath())->up();
-         }
-         */
+        $migrations = [
+            'create_ug_districts_table',
+            'create_ug_counties_table',
+            'create_ug_sub_counties_table',
+            'create_ug_parishes_table',
+            'create_ug_villages_table',
+        ];
+
+        foreach ($migrations as $migration) {
+            $m = include __DIR__."/../database/migrations/{$migration}.php.stub";
+            $m->up();
+        }
     }
 }

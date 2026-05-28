@@ -2,7 +2,10 @@
 
 namespace Gp10devhts\UgVillageLocations;
 
-use Gp10devhts\UgVillageLocations\Commands\UgVillageLocationsCommand;
+use Gp10devhts\UgVillageLocations\Commands\BuildDumpCommand;
+use Gp10devhts\UgVillageLocations\Commands\FetchLocationsCommand;
+use Gp10devhts\UgVillageLocations\Commands\SeedLocationsCommand;
+use Gp10devhts\UgVillageLocations\Commands\TruncateLocationsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -18,8 +21,18 @@ class UgVillageLocationsServiceProvider extends PackageServiceProvider
         $package
             ->name('ug-village-locations')
             ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_ug_village_locations_table')
-            ->hasCommand(UgVillageLocationsCommand::class);
+            ->hasMigrations([
+                'create_ug_districts_table',
+                'create_ug_counties_table',
+                'create_ug_sub_counties_table',
+                'create_ug_parishes_table',
+                'create_ug_villages_table',
+            ])
+            ->hasCommands([
+                FetchLocationsCommand::class,
+                BuildDumpCommand::class,
+                SeedLocationsCommand::class,
+                TruncateLocationsCommand::class,
+            ]);
     }
 }

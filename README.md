@@ -1,19 +1,20 @@
-# village locations package for uganda
+# Uganda Administrative Hierarchy Package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/gp10devhts/ug-village-locations.svg?style=flat-square)](https://packagist.org/packages/gp10devhts/ug-village-locations)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/gp10devhts/ug-village-locations/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/gp10devhts/ug-village-locations/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/gp10devhts/ug-village-locations/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/gp10devhts/ug-village-locations/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/gp10devhts/ug-village-locations.svg?style=flat-square)](https://packagist.org/packages/gp10devhts/ug-village-locations)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+A production-ready Laravel package that provides Uganda administrative locations from District → County → Sub County → Parish → Village.
 
-## Support us
+## Features
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/ug-village-locations.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/ug-village-locations)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+- Full administrative hierarchy: Districts, Counties, Sub-Counties, Parishes, and Villages.
+- Fast seeding via SQL dumps (offline support).
+- Configurable hierarchy depth.
+- Eloquent models and relationships.
+- Name-based searching scopes.
+- Maintainer tools for data collection from remote sources.
+- Optional UUID support.
 
 ## Installation
 
@@ -23,61 +24,73 @@ You can install the package via composer:
 composer require gp10devhts/ug-village-locations
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="ug-village-locations-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
+Publish the config and migrations:
 
 ```bash
 php artisan vendor:publish --tag="ug-village-locations-config"
+php artisan vendor:publish --tag="ug-village-locations-migrations"
 ```
 
-This is the contents of the published config file:
+Run the migrations:
+
+```bash
+php artisan migrate
+```
+
+Seed the locations:
+
+```bash
+php artisan ug-locations:seed
+```
+
+## Configuration
+
+You can customize the package via `config/ug-village-locations.php`:
 
 ```php
 return [
+    'seed_levels' => [
+        'districts',
+        'counties',
+        'sub_counties',
+        'parishes',
+        'villages',
+    ],
+    'use_uuids' => false,
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="ug-village-locations-views"
 ```
 
 ## Usage
 
+### Eloquent Models
+
 ```php
-$ugVillageLocations = new Gp10devhts\UgVillageLocations();
-echo $ugVillageLocations->echoPhrase('Hello, Gp10devhts!');
+use Gp10devhts\UgVillageLocations\Models\District;
+use Gp10devhts\UgVillageLocations\Models\Village;
+
+// Get all districts
+$districts = District::all();
+
+// Search by name
+$kampala = District::search('Kampala')->first();
+
+// Relationships
+$counties = $kampala->counties;
+$villages = Village::where('name', 'like', '%Kibuli%')->with('parish.subCounty.county.district')->get();
 ```
+
+## Artisan Commands
+
+- `php artisan ug-locations:seed`: Seed the database from local SQL dumps.
+- `php artisan ug-locations:truncate`: Wipe all administrative location data.
+- `php artisan ug-locations:fetch`: (Maintainer only) Fetch fresh data from remote source.
+- `php artisan ug-locations:build-dump`: (Maintainer only) Generate SQL dumps from fetched data.
 
 ## Testing
 
 ```bash
 composer test
 ```
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
-## Credits
-
-- [Ahairwe Jordan](https://github.com/gp10devhts)
-- [All Contributors](../../contributors)
 
 ## License
 
