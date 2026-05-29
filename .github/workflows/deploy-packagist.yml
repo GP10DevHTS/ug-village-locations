@@ -1,14 +1,29 @@
-  - name: Packagist Update
-  # You may pin to the exact commit or the version.
-  # uses: mnavarrocarter/packagist-update@72b6a490902b9e14e114dd748b112bb49087c642
-  uses: mnavarrocarter/packagist-update@v1.0.0
-  with:
-    # The packagist domain to call.
-    # domain: # optional, default is packagist.org
-    # Your packagist username
-    username: gp10devhts
-    # Your packagist api token
-    api_token: 
-    # Your package name (vendor/name). If not present, it takes it from composer.json
-    # package_name: gp10devhts/ug-village-locations
-          
+name: Release Please - deploy to packagist
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          release-type: simple
+
+      - name: Update Packagist
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          curl -X POST \
+            "https://packagist.org/api/update-package?username=${{ secrets.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"repository":{"url":"https://github.com/GP10DevHTS/ug-village-locations"}}'
+
