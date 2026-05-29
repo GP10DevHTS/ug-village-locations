@@ -94,6 +94,13 @@ $districts = UgVillageLocations::districts();
 $counties = UgVillageLocations::counties($districtId);
 ```
 
+### Demo Project
+A demo Laravel project is available at [github.com/GP10DevHTS/ug-locations-demo](https://github.com/GP10DevHTS/ug-locations-demo).
+
+#### **Notices:**
+- the project uses a custom District model to add regions.
+- the model extention migrations use the default table names from the package.
+
 ### Model Extensibility
 
 You can override the default models by updating the `models` array in the config file. This allows you to add custom relationships, scopes, or traits.
