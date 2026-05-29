@@ -9,7 +9,7 @@ class SeedLocationsCommand extends Command
 {
     protected $signature = 'ug-locations:seed';
 
-    protected $description = 'Seed Uganda administrative data from local dumps';
+    protected $description = 'Seed Uganda administrative data from local files';
 
     public function handle(): int
     {
