@@ -1,0 +1,29 @@
+name: Release Please - deploy to packagist
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          release-type: simple
+
+      - name: Update Packagist
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          curl -X POST \
+            "https://packagist.org/api/update-package?username=${{ secrets.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"repository":{"url":"https://github.com/GP10DevHTS/ug-village-locations"}}'
+
