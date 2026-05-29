@@ -1,9 +1,9 @@
 <?php
 
-use Gp10devhts\UgVillageLocations\Models\District;
 use Gp10devhts\UgVillageLocations\Models\County;
-use Gp10devhts\UgVillageLocations\Models\SubCounty;
+use Gp10devhts\UgVillageLocations\Models\District;
 use Gp10devhts\UgVillageLocations\Models\Parish;
+use Gp10devhts\UgVillageLocations\Models\SubCounty;
 use Gp10devhts\UgVillageLocations\Models\Village;
 use Gp10devhts\UgVillageLocations\Services\SeedLocationsService;
 use Illuminate\Support\Facades\File;
@@ -37,17 +37,17 @@ it('can seed from json when dumps are missing', function () {
                                         'villages' => [
                                             [
                                                 'id' => 5,
-                                                'name' => 'TEST VILLAGE'
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ]
+                                                'name' => 'TEST VILLAGE',
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
     ];
 
     File::put($dataDir.'/uganda_locations.json', json_encode($testData));
