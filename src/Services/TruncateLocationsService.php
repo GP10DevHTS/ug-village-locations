@@ -2,6 +2,7 @@
 
 namespace Gp10devhts\UgVillageLocations\Services;
 
+use Gp10devhts\UgVillageLocations\Facades\UgVillageLocations;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
@@ -10,11 +11,11 @@ class TruncateLocationsService
     public function truncate(?string $level = null, ?callable $onProgress = null): void
     {
         $tables = [
-            'villages' => 'ug_villages',
-            'parishes' => 'ug_parishes',
-            'sub_counties' => 'ug_sub_counties',
-            'counties' => 'ug_counties',
-            'districts' => 'ug_districts',
+            'villages' => $this->resolveTableFromModel(UgVillageLocations::villageModel()),
+            'parishes' => $this->resolveTableFromModel(UgVillageLocations::parishModel()),
+            'sub_counties' => $this->resolveTableFromModel(UgVillageLocations::subCountyModel()),
+            'counties' => $this->resolveTableFromModel(UgVillageLocations::countyModel()),
+            'districts' => $this->resolveTableFromModel(UgVillageLocations::districtModel()),
         ];
 
         Schema::disableForeignKeyConstraints();
@@ -34,5 +35,10 @@ class TruncateLocationsService
         }
 
         Schema::enableForeignKeyConstraints();
+    }
+
+    protected function resolveTableFromModel(string $modelClass): string
+    {
+        return (new $modelClass)->getTable();
     }
 }
