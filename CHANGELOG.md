@@ -2,6 +2,14 @@
 
 All notable changes to `ug-village-locations` will be documented in this file.
 
+## v1.0.5 - 2026-06-02
+
+### What's Changed
+
+* ensure truncate command uses modal tables by @GP10DevHTS in https://github.com/GP10DevHTS/ug-village-locations/pull/7
+
+**Full Changelog**: https://github.com/GP10DevHTS/ug-village-locations/compare/v1.0.4...v1.0.5
+
 ## v1.0.4 - 2026-05-29
 
 ### What's Changed
