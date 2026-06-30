@@ -2,6 +2,20 @@
 
 All notable changes to `ug-village-locations` will be documented in this file.
 
+## v1.0.6 - 2026-06-30
+
+### What's Changed
+
+* Bump googleapis/release-please-action from 4 to 5 by @dependabot[bot] in https://github.com/GP10DevHTS/ug-village-locations/pull/8
+* Bump actions/checkout from 6 to 7 by @dependabot[bot] in https://github.com/GP10DevHTS/ug-village-locations/pull/9
+* support laravel 10 and php 8.2 by @LemiManoah in https://github.com/GP10DevHTS/ug-village-locations/pull/10
+
+### New Contributors
+
+* @LemiManoah made their first contribution in https://github.com/GP10DevHTS/ug-village-locations/pull/10
+
+**Full Changelog**: https://github.com/GP10DevHTS/ug-village-locations/compare/v1.0.5...v1.0.6
+
 ## v1.0.5 - 2026-06-02
 
 ### What's Changed
